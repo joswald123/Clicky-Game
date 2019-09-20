@@ -1,22 +1,23 @@
-.App {
+.navbar {
+  background: #333;
+  
+}
+.container1 {
+  background: url(https://images-na.ssl-images-amazon.com/images/I/81uIU7ke-IL._AC_SL1500_.jpg);
   text-align: center;
+  padding-top: 120px;
+  padding-bottom: 170px; 
+  
 }
 
-.App-logo {
-  height: 40vmin;
+.container {
+  width: auto;
+  max-width: 900px;
+  padding: 0 15px;
+  
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.container .footer-text{
+  margin: 20px 0;
 }
 
-.App-link {
-  color: #09d3ac;
-}
