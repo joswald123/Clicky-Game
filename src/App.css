@@ -1,23 +1,81 @@
-.navbar {
-  background: #333;
+.topnav a {
+  float: left;
+  color: #e6d00d;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: rgb(197, 209, 23);
+  color: rgb(17, 16, 17);
+  text-align: center;
+}
+
+
+.gameScore {
+  color: white;
+  text-align: center;
+  height: 70px;
+  position: relative;
+  line-height: 1em;
+  padding: 0;
+  margin: 0;
+   
+}
+.score {
+  margin-top: 5px;
+  padding: 0;
+  font-weight: 600;
+  text-shadow: rgb(15, 15, 14) 0 0  0.2em; 
+}
+
+.status{
+  margin: 0;
+  padding: 0;
+  color: rgb(235, 213, 18);
   
 }
 .container1 {
-  background: url(https://images-na.ssl-images-amazon.com/images/I/81uIU7ke-IL._AC_SL1500_.jpg);
+  
+  background: url(http://avante.biz/wp-content/uploads/Wallpaper-cat-cartoon/Wallpaper-cat-cartoon-037.jpg) center no-repeat;
   text-align: center;
-  padding-top: 120px;
+  padding-top: 170px;
   padding-bottom: 170px; 
+  color: 0 0 0 0.2em rgb(243, 247, 37);
+  text-shadow: rgb(223, 226, 28) 0 0  0.2em;
+  
+} 
+
+.container {
+  display: flex;
+  min-height: 80%;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 90%;   
+  margin: 0 auto;
+  
   
 }
 
-.container {
+.containerNavFooter {
   width: auto;
   max-width: 900px;
   padding: 0 15px;
+}
+
+
+
+.containerNavFooter .footer-text{
+  margin: 20px 0;
   
 }
 
-.container .footer-text{
-  margin: 20px 0;
+.sticky-footer {
+  flex-shrink: none;
 }
 
