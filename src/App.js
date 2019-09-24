@@ -7,8 +7,6 @@ import Footer from "./components/Footer";
 import Score from "./components/Score/Score";
 import "./App.css"
 
-
-
 class App extends Component {
 
   constructor(props) {
@@ -16,56 +14,73 @@ class App extends Component {
     this.state = {
       emojis,
       score: 0,
-      emojisArray: [],
       goal: 8,
+      highScore: 0,
       status: ""
-
     }
-    // this.increment = this.increment.bind(this)
+
   }
   componentDidMount() {
+    const newEmojis = this.state.emojis.map(emoji => {
+      return { ...emoji, count: 0 }
+    })
 
-    this.setState({ emojisArray: emojis })
+  }
+  gameOver = () => {
+
+    if (this.state.score > this.state.highScore) {
+      this.setState({ highScore: this.state.score }, function () {
+        console.log(this.state.highScore)
+      });
+
+    }
+    const newEmojis = this.state.emojis.map(emoji => {
+      return { ...emoji, count: 0 }
+    });
+   
+    this.setState({ score: 0, status: "Game Over! You lost. Click to play again", emojis: newEmojis });
+
   }
 
-  // increment = () => {
+  gameWon = () => {
 
-  //   this.setState({ score: this.state.score + 1 })
+    if (this.state.score === 8) {
+      this.setState({ highScore: this.state.score }, function () {
+        console.log("You win!")
+      });
 
-  // }
+    }
+    const newEmojis = this.state.emojis.map(emoji => {
+      return { ...emoji, count: 0 }
+    });
+
+    this.setState({ score: 8, status: "You won! Great job, Click to play again", emojis: newEmojis });
+  }
 
   selectEmoji = id => {
+    console.log(emojis);
+    if (this.state.score === 0) {
+      this.setState({ status: "Starting new Game!" })
+    }
+    this.state.emojis.find((j, i) => {
+      if (j.id === id) {
+        if (emojis[i].count === 0) {
+          emojis[i].count = emojis[i] + 1;
+          this.setState({ score: this.state.score + 1, status: "You guessed correctly!" }, function () {
+          });
+          this.state.emojis.sort(() => Math.random() - 0.5)
+          return true;
 
-    console.log(id);
+        } else if (this.gameWon()) {
 
-    let emojisArray = this.state.emojisArray;
-
-    if(emojisArray.includes(id)){
-      
-      this.setState({ emojisArray: [], score: 0, status: "Game Over! You lost. Click to play again"});
-      console.log("Game Over! You lost. Click to play again")
-      return;
-    }else{
-
-      emojisArray.push(id)
-
-      if(emojisArray.length === 8){
-         this.setState({ score: 8, status: "You won! Great job, Click to play again", emojisArray: []});
-        console.log("You win!")
+        } else {
+          this.gameOver();
+        }
       }
-    }
-    this.setState({emojis, emojisArray, score: emojis.length, status: " "});
-
-
-    for (let i = emojis.push.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      [emojis[i], emojis[j]] = [emojis[j], emojis[i]];
-    }
-  
+    });
 
 
   }
-
 
 
   render() {
@@ -77,33 +92,37 @@ class App extends Component {
 
           <div className="topnav fixed-top py-4 bg-dark text-white-50">
             <div className="containerNavFooter">
-              <a className="active" href="#home">Clicky Game</a>
-              <Score total={this.state.score}
-              goal= {8}
-              status={this.state.status}
+              <a className="activeButton" href="#home">Clicky Game</a>
+
+              <Score
+                total={this.state.score}
+                highScore={this.state.highScore}
+                goal={8}
+                status={this.state.status}
               />
-              
-            
+
+
             </div>
+
           </div>
 
           <div className="container1">
             <h1 >Clicky Game!</h1>
             <h3>Click on an image to earn points, but don't click on any more than once!</h3>
-           
+
           </div>
-            
+
         </header>
 
         <Wrapper>
           <main className="container">
 
-            {this.state.emojisArray.map(emoji => (
+            {this.state.emojis.map(emoji => (
               <EmojiCard
-                selectEmoji={() => this.selectEmoji(emoji.id)}
+                selectEmoji={this.selectEmoji}
                 key={emoji.id}
                 id={emoji.id}
-                image={emoji.image}  
+                image={emoji.image}
               />
 
             ))}
@@ -111,7 +130,7 @@ class App extends Component {
         </Wrapper>
 
         < Footer />
-     
+
       </div>
     );
   }

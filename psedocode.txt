@@ -1,0 +1,9 @@
+/// click 
+    check to if the the image has been clicked before. 
+        If the image was clicked then the count should go to zero.
+        if the image was not clicked then increment the count 
+                if count is incremented them i need to shuffle my pics and render them 
+
+
+function that shuffles my array
+function that keeps track of the images that have been clicked

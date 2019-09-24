@@ -6,7 +6,7 @@ const EmojiCard = props => (
     <div className="card">
         <div className="img-container">
             <img alt={props.name} src={props.image} id={props.id}
-             onClick={ () => props.selectEmoji(props.id)} className="selectEmoji"/>
+             onClick={ () => props.selectEmoji(props.id)} className="select"/>
             
         </div>
         
