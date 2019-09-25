@@ -21,16 +21,16 @@ class App extends Component {
 
   }
   componentDidMount() {
+    console.log("Component did mount")
     const newEmojis = this.state.emojis.map(emoji => {
       return { ...emoji, count: 0 }
-    })
-
+    });
+    this.setState({status: " ", emojis:newEmojis});
   }
   gameOver = () => {
 
     if (this.state.score > this.state.highScore) {
       this.setState({ highScore: this.state.score }, function () {
-        console.log(this.state.highScore)
       });
 
     }
@@ -38,15 +38,14 @@ class App extends Component {
       return { ...emoji, count: 0 }
     });
    
-    this.setState({ score: 0, status: "Game Over! You lost. Click to play again", emojis: newEmojis });
-
+    this.setState({ score: 0, status:"Game Over! You lost. Click to play again", emojis: newEmojis });
+    
   }
 
   gameWon = () => {
 
     if (this.state.score === 8) {
       this.setState({ highScore: this.state.score }, function () {
-        console.log("You win!")
       });
 
     }
@@ -58,14 +57,10 @@ class App extends Component {
   }
 
   selectEmoji = id => {
-    console.log(emojis);
-    if (this.state.score === 0) {
-      this.setState({ status: "Starting new Game!" })
-    }
-    this.state.emojis.find((j, i) => {
-      if (j.id === id) {
-        if (emojis[i].count === 0) {
-          emojis[i].count = emojis[i] + 1;
+    this.state.emojis.find((emoji) => {
+      if (emoji.id === id) {
+        if (emoji.count === 0) {
+          emoji.count = emoji + 1;
           this.setState({ score: this.state.score + 1, status: "You guessed correctly!" }, function () {
           });
           this.state.emojis.sort(() => Math.random() - 0.5)
@@ -78,8 +73,6 @@ class App extends Component {
         }
       }
     });
-
-
   }
 
 
@@ -92,7 +85,7 @@ class App extends Component {
 
           <div className="topnav fixed-top py-4 bg-dark text-white-50">
             <div className="containerNavFooter">
-              <a className="activeButton" href="#home">Clicky Game</a>
+              <a className="activeButton" href="#home"> <ion-icon name="logo-game-controller-b"></ion-icon> <ion-icon name="happy"></ion-icon> </a>
 
               <Score
                 total={this.state.score}

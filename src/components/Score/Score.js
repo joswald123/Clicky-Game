@@ -1,5 +1,6 @@
 import React from 'react';
-// import FaBeer from 'react-icons/lib/fa/beer';
+
+
 
 const Score = props => (
     <div className="gameScore">
