@@ -21,39 +21,36 @@ class App extends Component {
 
   }
   componentDidMount() {
-    console.log("Component did mount")
     const newEmojis = this.state.emojis.map(emoji => {
       return { ...emoji, count: 0 }
     });
-    this.setState({status: " ", emojis:newEmojis});
+    this.setState({ status: " ", emojis: newEmojis });
+  }
+  resetImages = ()=>{
+    const newEmojis = this.state.emojis.map(emoji => {
+      return { ...emoji, count: 0 }
+    });
+    return newEmojis
   }
   gameOver = () => {
 
     if (this.state.score > this.state.highScore) {
-      this.setState({ highScore: this.state.score }, function () {
-      });
-
+      this.setState({ highScore: this.state.score });
     }
-    const newEmojis = this.state.emojis.map(emoji => {
-      return { ...emoji, count: 0 }
-    });
    
-    this.setState({ score: 0, status:"Game Over! You lost. Click to play again", emojis: newEmojis });
-    
-  }
+    this.setState({ score: 0, status: "Game Over! You lost. Click to play again", emojis: this.resetImages() });
 
+  }
   gameWon = () => {
 
-    if (this.state.score === 8) {
-      this.setState({ highScore: this.state.score }, function () {
-      });
+    if (this.state.score === this.state.goal) {
+      this.setState({ highScore: this.state.score });
 
+      this.setState({ score: 8, status: "You won! Great job, Click to play again", emojis: this.resetImages() });
+      return true
     }
-    const newEmojis = this.state.emojis.map(emoji => {
-      return { ...emoji, count: 0 }
-    });
+    return false
 
-    this.setState({ score: 8, status: "You won! Great job, Click to play again", emojis: newEmojis });
   }
 
   selectEmoji = id => {
@@ -63,11 +60,12 @@ class App extends Component {
           emoji.count = emoji + 1;
           this.setState({ score: this.state.score + 1, status: "You guessed correctly!" }, function () {
           });
+          
           this.state.emojis.sort(() => Math.random() - 0.5)
           return true;
 
-        } else if (this.gameWon()) {
-
+        }else if(this.gameWon())  {
+         
         } else {
           this.gameOver();
         }
@@ -93,7 +91,6 @@ class App extends Component {
                 goal={8}
                 status={this.state.status}
               />
-
 
             </div>
 
